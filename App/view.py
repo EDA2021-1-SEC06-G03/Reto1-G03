@@ -33,6 +33,17 @@ Presenta el menu de opciones y por cada seleccion
 se hace la solicitud al controlador para ejecutar la
 operación solicitada
 """
+def initCatalog():
+    """
+    Inicializa el catalogo de libros
+    """
+    return controller.initCatalog()
+
+def loadData(catalog):
+    """
+    Carga los libros en la estructura de datos
+    """
+    controller.loadData(catalog)
 
 def printMenu():
     print("Bienvenido")
