@@ -48,7 +48,10 @@ def loadData(catalog):
 def printMenu():
     print("Bienvenido")
     print("1- Cargar información en el catálogo")
-    print("2- ")
+    print("2- Req 2")
+    print("3- Req 3")
+    print("4- Req 4")
+    print("0- Salir")
 
 catalog = None
 
@@ -59,9 +62,22 @@ while True:
     printMenu()
     inputs = input('Seleccione una opción para continuar\n')
     if int(inputs[0]) == 1:
+        #time_1 = time.time()
+        catalog = initCatalog()
+        loadData(catalog)
         print("Cargando información de los archivos ....")
+        print('Libros cargados: ' + str(lt.size(catalog['books'])))
+        print('Autores cargados: ' + str(lt.size(catalog['authors'])))
+        #time_2 = time.time()
+        print('Segundos de carga :{}'.format(str(time_2-time_1)))
 
     elif int(inputs[0]) == 2:
+        pass
+    
+    elif int(inputs[0]) == 3:
+        pass
+    
+    elif int(inputs[0]) == 4:
         pass
 
     else:

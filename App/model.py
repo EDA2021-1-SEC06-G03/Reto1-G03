@@ -36,6 +36,21 @@ los mismos.
 """
 
 # Construccion de modelos
+def newCatalog():
+    """
+    Inicializa el catálogo de libros. Crea una lista vacia para guardar
+    todos los libros, adicionalmente, crea una lista vacia para los autores,
+    una lista vacia para los generos y una lista vacia para la asociación
+    generos y libros. Retorna el catalogo inicializado.
+    """
+    catalog = {'books': None,
+               'authors': None,}
+
+    catalog['books'] = lt.newList()
+    catalog['authors'] = lt.newList('ARRAY_LIST',
+                                    cmpfunction=compareauthors)
+
+    return catalog
 
 # Funciones para agregar informacion al catalogo
 
