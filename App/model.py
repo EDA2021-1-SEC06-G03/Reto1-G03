@@ -49,10 +49,14 @@ def newCatalog():
                                     cmpfunction=NotImplemented)
     catalog['categorias'] = lt.newList()
 
-
     return catalog
 
 # Funciones para agregar informacion al catalogo
+
+def addVideo(catalog, video):
+    # Se adiciona el libro a la lista de libros
+    lt.addLast(catalog['videos'], video)
+
 
 # Funciones para creacion de datos
 

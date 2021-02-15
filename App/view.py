@@ -66,10 +66,9 @@ while True:
         catalog = initCatalog()
         loadData(catalog)
         print("Cargando información de los archivos ....")
-        print('Libros cargados: ' + str(lt.size(catalog['books'])))
-        print('Autores cargados: ' + str(lt.size(catalog['authors'])))
+        print('Videos cargados: ' + str(lt.size(catalog['videos'])))
         #time_2 = time.time()
-        print('Segundos de carga :{}'.format(str(time_2-time_1)))
+        #print('Segundos de carga :{}'.format(str(time_2-time_1)))
 
     elif int(inputs[0]) == 2:
         pass
