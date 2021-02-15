@@ -45,18 +45,20 @@ def newCatalog():
     """
     catalog = {'videos': None,
                'categorias': None,}
-    catalog['videos'] = lt.newList('ARRAY_LIST',
-                                    cmpfunction=NotImplemented)
-    catalog['categorias'] = lt.newList()
+    catalog['videos'] = lt.newList('ARRAY_LIST', cmpfunction=NotImplemented)
+    catalog['categorias'] = lt.newList('ARRAY_LIST', cmpfunction=NotImplemented)
 
     return catalog
 
 # Funciones para agregar informacion al catalogo
 
 def addVideo(catalog, video):
-    # Se adiciona el libro a la lista de libros
+    # Se adiciona el video a la lista de videos
     lt.addLast(catalog['videos'], video)
 
+def addCategoria(catalog, cate):
+    # Se adiciona la categoria a la lista de categorias
+    lt.addLast(catalog['categorias'], cate)
 
 # Funciones para creacion de datos
 

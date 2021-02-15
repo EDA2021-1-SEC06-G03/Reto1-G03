@@ -44,21 +44,28 @@ def loadData(catalog):
     estructura de datos
     """
     loadVideos(catalog)
-    #loadTags(catalog)
+    loadCategorias(catalog)
     #loadBooksTags(catalog)
     #sortBooks(catalog)
 
-    
+
 def loadVideos(catalog):
     """
-    Carga los libros del archivo.  Por cada libro se toman sus autores y por
-    cada uno de ellos, se crea en la lista de autores, a dicho autor y una
-    referencia al libro que se esta procesando.
+    Carga los videos del archivo.
     """
     videosfile = cf.data_dir + 'videos-small.csv'
     input_file = csv.DictReader(open(videosfile, encoding='utf-8'))
     for video in input_file:
         model.addVideo(catalog, video)
+
+def loadCategorias(catalog):
+    """
+    Carga las categorias del archivo.
+    """
+    catsfile = cf.data_dir + 'category-id.csv'
+    input_file = csv.DictReader(open(catsfile, encoding='utf-8'))
+    for cate in input_file:
+        model.addCategoria(catalog, cate)
 
 
 

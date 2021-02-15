@@ -67,6 +67,7 @@ while True:
         loadData(catalog)
         print("Cargando información de los archivos ....")
         print('Videos cargados: ' + str(lt.size(catalog['videos'])))
+        print('Categorias cargadas: ' + str(lt.size(catalog['categorias'])))
         #time_2 = time.time()
         #print('Segundos de carga :{}'.format(str(time_2-time_1)))
 
