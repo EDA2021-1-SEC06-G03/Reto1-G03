@@ -45,8 +45,7 @@ def loadData(catalog):
     """
     loadVideos(catalog)
     loadCategorias(catalog)
-    #loadBooksTags(catalog)
-    #sortBooks(catalog)
+    sortVideos(catalog)
 
 
 def loadVideos(catalog):
@@ -70,5 +69,10 @@ def loadCategorias(catalog):
 
 
 # Funciones de ordenamiento
+def sortVideos(catalog):
+    """
+    Ordena los libros por average_rating
+    """
+    model.sortVideos(catalog)
 
 # Funciones de consulta sobre el catálogo
