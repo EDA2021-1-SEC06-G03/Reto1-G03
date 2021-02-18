@@ -72,15 +72,15 @@ while True:
         #print('Segundos de carga :{}'.format(str(time_2-time_1)))
 
     elif int(inputs[0]) == 2:
-        print("Req 2")
+        number = input("Buscando los TOP ?: ")
         pass
     
     elif int(inputs[0]) == 3:
-        print("Req 3")
+        channelname = input("Nombre del canal a buscar: ")
         pass
     
     elif int(inputs[0]) == 4:
-        print("Req 4")
+        label = input("Categoria a buscar: ")
         pass
 
     else:
