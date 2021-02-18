@@ -48,9 +48,9 @@ def loadData(catalog):
 def printMenu():
     print("Bienvenido")
     print("1- Cargar información en el catálogo")
-    print("2- Req 2")
-    print("3- Req 3")
-    print("4- Req 4")
+    print("2- Consultar top x videos por vistas")
+    print("3- Consultar los videos de un canal")
+    print("4- Videos por categoria")
     print("0- Salir")
 
 catalog = None
