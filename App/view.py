@@ -72,12 +72,15 @@ while True:
         #print('Segundos de carga :{}'.format(str(time_2-time_1)))
 
     elif int(inputs[0]) == 2:
+        print("Req 2")
         pass
     
     elif int(inputs[0]) == 3:
+        print("Req 3")
         pass
     
     elif int(inputs[0]) == 4:
+        print("Req 4")
         pass
 
     else:
