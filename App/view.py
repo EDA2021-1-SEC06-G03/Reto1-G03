@@ -45,8 +45,7 @@ def loadData(catalog, estructura='ARRAY_LIST'):
     """
     controller.loadData(catalog)
 
-def sub_lista(catalog['videos'],tamaño):
-    
+
 
 def printMenu():
     print("Bienvenido")
@@ -76,27 +75,54 @@ while True:
                 estructura = 'ARRAY_LIST'
             elif escogencia == "2":
                 ha_escogido = True
-                estructura = 'SINGLE_LINKED_LIST'
+                estructura = 'LINKED_LIST'
             else:
                 print("Por favor escoge una de las dos opciones")
         time_1 = time.process_time()
         catalog = initCatalog(estructura)
         loadData(catalog)
+        time_2 = time.process_time()
         print("Cargando información de los archivos ....")
         print('Videos cargados: ' + str(lt.size(catalog['videos'])))
         print('Categorias cargadas: ' + str(lt.size(catalog['categorias'])))
-        time_2 = time.process_time()
         print('Segundos de carga :{}'.format(str(time_2-time_1)))
 
     elif int(inputs[0]) == 2:
-        number = input("Buscando los TOP ?: ")
+        n = lt.size(catalog['videos'])
+        print("Buscando los TOP ?: ")
         ha_escogido_tamaño = False
         while not ha_escogido_tamaño:
-            print("Recuerda que hay " + str(lt.size(catalog['videos'])) + "libro cargados")
             tamaño = int(input(""))
-            if tamaño <= lt.size(catalog['videos']):
+            if tamaño < n:
                 ha_escogido_tamaño = True
-        sublista = sub_lista(catalog['videos'],tamaño)
+            else:
+                print("Recuerda que hay " + str(n) + "libro cargados")
+        print("¿Cual algoritmo deseas usar para organizar los videos?")
+        ha_escogido_metodo = False
+        print("1: Shell Sort (Recomendado)")
+        print("2: Selection Sort")
+        print("3: Insertion Sort")
+        while not ha_escogido_metodo:
+            escogencia = str(input(""))
+            if escogencia == "1":
+                ha_escogido_metodo = True
+                metodo = 'shell'
+            elif escogencia == "2":
+                ha_escogido_metodo = True
+                metodo = 'selection'
+            elif escogencia == "3":
+                ha_escogido_metodo = True
+                metodo = 'insertion'
+            else:
+                print("Por favor escoge una de las tres opciones de algoritmos de ordenamiento")
+        time_1 = time.process_time()
+        mas_vistos = controller.getMostViewed(catalog, tamaño, metodo)
+        time_2 = time.process_time()
+        posicion_imprimir = 1
+        for video in lt.iterator(mas_vistos):
+            print(str(posicion_imprimir),":" + "Titulo:" + video["title"] + "Vistas:" + video["views"])
+            posicion_imprimir += 1
+            print('Segundos de carga :{}'.format(str(time_2-time_1)))
         
     
     elif int(inputs[0]) == 3:

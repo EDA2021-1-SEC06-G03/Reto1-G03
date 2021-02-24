@@ -45,7 +45,7 @@ def loadData(catalog):
     """
     loadVideos(catalog)
     loadCategorias(catalog)
-    sortVideos(catalog)
+    #sortVideos(catalog, shell, vistas)
 
 
 def loadVideos(catalog):
@@ -69,10 +69,24 @@ def loadCategorias(catalog):
 
 
 # Funciones de ordenamiento
-def sortVideos(catalog):
+def sortVideos(catalog, metodo, orden):
     """
-    Ordena los libros por average_rating
+    Ordena los videos por views
+    metodo se refiere al algoritmo de sorting
+    orden se refiere al criterio por el que se ordena: revisar las opciones en model.sortVideos
     """
-    model.sortVideos(catalog)
+    model.sortVideos(catalog, metodo, orden)
 
 # Funciones de consulta sobre el catálogo
+
+def subListVideos(catalog, pos, number):
+    return model.subListVideos(catalog, pos, number)
+
+# Funciones de consulta que modifican
+def getMostViewed(catalog, number, metodo="shell"):
+    """
+    Primero organiza todos los videos por vistas 
+    Retorna una sublista de los videos mas vistos
+    """
+    sortVideos(catalog, metodo, "vistas")
+    return subListVideos(catalog, 1, number)

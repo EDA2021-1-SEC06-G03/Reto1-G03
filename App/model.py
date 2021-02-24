@@ -28,6 +28,8 @@
 import config as cf
 from DISClib.ADT import list as lt
 from DISClib.Algorithms.Sorting import shellsort as sa
+from DISClib.Algorithms.Sorting import selectionsort as ss
+from DISClib.Algorithms.Sorting import insertionsort as in_s
 assert cf
 
 """
@@ -63,6 +65,13 @@ def addCategoria(catalog, cate):
 # Funciones para creacion de datos
 
 # Funciones de consulta
+def subListVideos(catalog, pos, number):
+    """
+    Retorna sublista de videos
+    """
+    videos = catalog["videos"]
+    
+    return lt.subList(videos, pos, number)
 
 # Funciones utilizadas para comparar elementos dentro de una lista
 
@@ -70,7 +79,21 @@ def addCategoria(catalog, cate):
 def cmpVideosByViews(video1, video2):
     return (float(video1['views']) > float(video2['views']))
 
+#def cmpVideosBy_criterio(video1, video2):
+#    return (float(video1['criterio']) > float(video2['criterio']))
+
 # Funciones de ordenamiento
 
-def sortVideos(catalog):
-    sa.sort(catalog['videos'], cmpVideosByViews)
+def sortVideos(catalog, metodo, orden):
+    if orden == "vistas":
+        funcion_comp = cmpVideosByViews
+    '''
+    elif orden == "criterio"
+        funcion_comp = cmpVideosBy_criterio
+    '''
+    if metodo == "shell":
+        sa.sort(catalog['videos'], funcion_comp)
+    elif metodo == "selection":
+        ss.sort(catalog['videos'], funcion_comp)
+    elif metodo == "shell":
+        in_s.sort(catalog['videos'], funcion_comp)
