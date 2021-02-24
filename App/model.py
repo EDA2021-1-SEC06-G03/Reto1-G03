@@ -36,7 +36,7 @@ los mismos.
 """
 
 # Construccion de modelos
-def newCatalog():
+def newCatalog(estructura):
     """
     Inicializa el catálogo de libros. Crea una lista vacia para guardar
     todos los libros, adicionalmente, crea una lista vacia para los autores,
@@ -45,7 +45,7 @@ def newCatalog():
     """
     catalog = {'videos': None,
                'categorias': None,}
-    catalog['videos'] = lt.newList('ARRAY_LIST', cmpfunction=NotImplemented)
+    catalog['videos'] = lt.newList(estructura, cmpfunction=NotImplemented)
     catalog['categorias'] = lt.newList('ARRAY_LIST', cmpfunction=NotImplemented)
 
     return catalog
@@ -67,10 +67,10 @@ def addCategoria(catalog, cate):
 # Funciones utilizadas para comparar elementos dentro de una lista
 
 
-def comparar_vistas(video1, video2):
+def cmpVideosByViews(video1, video2):
     return (float(video1['views']) > float(video2['views']))
 
 # Funciones de ordenamiento
 
 def sortVideos(catalog):
-    sa.sort(catalog['videos'], comparar_vistas)
+    sa.sort(catalog['videos'], cmpVideosByViews)
