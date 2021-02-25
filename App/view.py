@@ -86,7 +86,7 @@ while True:
         print("Cargando información de los archivos ....")
         print('Videos cargados: ' + str(lt.size(catalog['videos'])))
         print('Categorias cargadas: ' + str(lt.size(catalog['categorias'])))
-        print('Segundos de carga :{}'.format(str(time_2-time_1)))
+        print('Milisegundos de carga :{}'.format(str((time_2-time_1)*1000)))
         
 
     elif int(inputs[0]) == 2:
@@ -125,7 +125,7 @@ while True:
             #print(str(posicion_imprimir),":" + "Titulo:" + video["title"] + "Vistas:" + video["views"])
             posicion_imprimir += 1
         print(posicion_imprimir-1)
-        print('Segundos de carga :{}'.format(str(time_2-time_1)))
+        print('Milisegundos de carga :{}'.format(str((time_2-time_1)*1000)))
         
     
     elif int(inputs[0]) == 3:
