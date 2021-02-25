@@ -88,7 +88,7 @@ def sortVideos(catalog, metodo, orden):
     if orden == "vistas":
         funcion_comp = cmpVideosByViews
     '''
-    elif orden == "criterio"
+    if orden == "criterio"
         funcion_comp = cmpVideosBy_criterio
     '''
     if metodo == "shell":

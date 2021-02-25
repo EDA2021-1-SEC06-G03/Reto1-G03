@@ -78,7 +78,11 @@ while True:
                 estructura = 'LINKED_LIST'
             else:
                 print("Por favor escoge una de las dos opciones")
-        cantidad_datos = int(input("cuantos videos desea cargar maximo"))
+        ha_escogido_size = False
+        print("Cuantos videos desea cargar maximo: "))
+        while not ha_escogido_size:
+            print("Recuerda que el archivo Large tiene 3700000")
+            cantidad_datos = int(input(""))
         time_1 = time.process_time()
         catalog = initCatalog(estructura)
         loadData(catalog, cantidad_datos)
@@ -122,9 +126,9 @@ while True:
         time_2 = time.process_time()
         posicion_imprimir = 1
         for video in lt.iterator(mas_vistos):
-            #print(str(posicion_imprimir),":" + "Titulo:" + video["title"] + "Vistas:" + video["views"])
+            print(str(posicion_imprimir),":" + "Titulo:" + video["title"] + "Vistas:" + video["views"])
             posicion_imprimir += 1
-        print(posicion_imprimir-1)
+        
         print('Milisegundos de carga :{}'.format(str((time_2-time_1)*1000)))
         
     

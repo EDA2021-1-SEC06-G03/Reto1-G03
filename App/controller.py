@@ -58,7 +58,7 @@ def loadVideos(catalog, size_videos: int):
     for video in input_file:
         model.addVideo(catalog, video)
         contador_datos += 1
-        if contador_datos == size_videos:
+        if contador_datos <= size_videos:
             break
 
 def loadCategorias(catalog):
