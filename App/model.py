@@ -27,9 +27,12 @@
 
 import config as cf
 from DISClib.ADT import list as lt
-from DISClib.Algorithms.Sorting import shellsort as sa
-from DISClib.Algorithms.Sorting import selectionsort as ss
-from DISClib.Algorithms.Sorting import insertionsort as in_s
+from DISClib.Algorithms.Sorting import shellsort as shell
+from DISClib.Algorithms.Sorting import selectionsort as selection
+from DISClib.Algorithms.Sorting import insertionsort as insertion
+from DISClib.Algorithms.Sorting import quicksort as quick
+from DISClib.Algorithms.Sorting import mergesort as merge
+
 assert cf
 
 """
@@ -92,8 +95,12 @@ def sortVideos(catalog, metodo, orden):
         funcion_comp = cmpVideosBy_criterio
     '''
     if metodo == "shell":
-        sa.sort(catalog['videos'], funcion_comp)
+        shell.sort(catalog['videos'], funcion_comp)
     if metodo == "selection":
-        ss.sort(catalog['videos'], funcion_comp)
+        selection.sort(catalog['videos'], funcion_comp)
     if metodo == "insertion":
-        in_s.sort(catalog['videos'], funcion_comp)
+        insertion.sort(catalog['videos'], funcion_comp)
+    if metodo == "quick":
+        quick.sort(catalog['videos'], funcion_comp)
+    if metodo == "merge":
+        merge.sort(catalog['videos'], funcion_comp)

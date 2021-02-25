@@ -78,16 +78,16 @@ while True:
                 estructura = 'LINKED_LIST'
             else:
                 print("Por favor escoge una de las dos opciones")
-        ha_escogido_size = False
-        print("Cuantos videos desea cargar maximo: "))
-        while not ha_escogido_size:
-            print("Recuerda que el archivo Large tiene 3700000")
-            cantidad_datos = int(input(""))
+        
+        print("Cuantos videos desea cargar maximo: ")
+        cantidad_datos = int(input(""))
+        print("Cargando información de los archivos ....")
+        if cantidad_datos >= 375942:
+            print("Espera mientras se cargan todos los datos, recuerda que el archivo Large tiene {} videos".format(str(375942)))
         time_1 = time.process_time()
         catalog = initCatalog(estructura)
         loadData(catalog, cantidad_datos)
         time_2 = time.process_time()
-        print("Cargando información de los archivos ....")
         print('Videos cargados: ' + str(lt.size(catalog['videos'])))
         print('Categorias cargadas: ' + str(lt.size(catalog['categorias'])))
         print('Milisegundos de carga :{}'.format(str((time_2-time_1)*1000)))
@@ -108,6 +108,8 @@ while True:
         print("1: Shell Sort (Recomendado)")
         print("2: Selection Sort")
         print("3: Insertion Sort")
+        print("4: Quick (Recomendado) Sort")
+        print("5: Merge (Recomendado) Sort")
         while not ha_escogido_metodo:
             escogencia = str(input(""))
             if escogencia == "1":
@@ -119,8 +121,15 @@ while True:
             elif escogencia == "3":
                 ha_escogido_metodo = True
                 metodo = 'insertion'
+            elif escogencia == "4":
+                ha_escogido_metodo = True
+                metodo = 'quick'
+            elif escogencia == "5":
+                ha_escogido_metodo = True
+                metodo = 'merge'
             else:
                 print("Por favor escoge una de las tres opciones de algoritmos de ordenamiento")
+        print("Organizando datos con {}sort, por favor espera...".format(str(metodo)))
         time_1 = time.process_time()
         mas_vistos = controller.getMostViewed(catalog, tamaño, metodo)
         time_2 = time.process_time()
