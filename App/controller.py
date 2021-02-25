@@ -38,24 +38,28 @@ def initCatalog(estructura):
     return catalog
 
 # Funciones para la carga de datos
-def loadData(catalog):
+def loadData(catalog, size_videos: int):
     """
     Carga los datos de los archivos y cargar los datos en la
     estructura de datos
     """
-    loadVideos(catalog)
+    loadVideos(catalog, size_videos)
     loadCategorias(catalog)
     #sortVideos(catalog, shell, vistas)
 
 
-def loadVideos(catalog):
+def loadVideos(catalog, size_videos: int):
     """
     Carga los videos del archivo.
     """
-    videosfile = cf.data_dir + 'videos-small.csv'
+    videosfile = cf.data_dir + 'videos-large.csv'
     input_file = csv.DictReader(open(videosfile, encoding='utf-8'))
+    contador_datos = 0
     for video in input_file:
         model.addVideo(catalog, video)
+        contador_datos += 1
+        if contador_datos == size_videos:
+            break
 
 def loadCategorias(catalog):
     """

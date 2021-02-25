@@ -93,7 +93,7 @@ def sortVideos(catalog, metodo, orden):
     '''
     if metodo == "shell":
         sa.sort(catalog['videos'], funcion_comp)
-    elif metodo == "selection":
+    if metodo == "selection":
         ss.sort(catalog['videos'], funcion_comp)
-    elif metodo == "shell":
+    if metodo == "insertion":
         in_s.sort(catalog['videos'], funcion_comp)

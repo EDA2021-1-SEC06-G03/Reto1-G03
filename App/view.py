@@ -39,11 +39,11 @@ def initCatalog(estructura):
     """
     return controller.initCatalog(estructura)
 
-def loadData(catalog, estructura='ARRAY_LIST'):
+def loadData(catalog, size_videos: int, estructura='ARRAY_LIST'):
     """
     Carga los libros en la estructura de datos
     """
-    controller.loadData(catalog)
+    controller.loadData(catalog, size_videos)
 
 
 
@@ -78,14 +78,16 @@ while True:
                 estructura = 'LINKED_LIST'
             else:
                 print("Por favor escoge una de las dos opciones")
+        cantidad_datos = int(input("cuantos videos desea cargar maximo"))
         time_1 = time.process_time()
         catalog = initCatalog(estructura)
-        loadData(catalog)
+        loadData(catalog, cantidad_datos)
         time_2 = time.process_time()
         print("Cargando información de los archivos ....")
         print('Videos cargados: ' + str(lt.size(catalog['videos'])))
         print('Categorias cargadas: ' + str(lt.size(catalog['categorias'])))
         print('Segundos de carga :{}'.format(str(time_2-time_1)))
+        
 
     elif int(inputs[0]) == 2:
         n = lt.size(catalog['videos'])
@@ -120,9 +122,10 @@ while True:
         time_2 = time.process_time()
         posicion_imprimir = 1
         for video in lt.iterator(mas_vistos):
-            print(str(posicion_imprimir),":" + "Titulo:" + video["title"] + "Vistas:" + video["views"])
+            #print(str(posicion_imprimir),":" + "Titulo:" + video["title"] + "Vistas:" + video["views"])
             posicion_imprimir += 1
-            print('Segundos de carga :{}'.format(str(time_2-time_1)))
+        print(posicion_imprimir-1)
+        print('Segundos de carga :{}'.format(str(time_2-time_1)))
         
     
     elif int(inputs[0]) == 3:
