@@ -99,7 +99,7 @@ while True:
         ha_escogido_tamaño = False
         while not ha_escogido_tamaño:
             tamaño = int(input(""))
-            if tamaño < n:
+            if tamaño <= n:
                 ha_escogido_tamaño = True
             else:
                 print("Recuerda que hay " + str(n) + "libro cargados")
