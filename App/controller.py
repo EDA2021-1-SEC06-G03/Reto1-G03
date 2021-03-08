@@ -23,6 +23,7 @@
 import config as cf
 import model
 import csv
+import datetime
 
 
 """
@@ -55,8 +56,12 @@ def loadVideos(catalog, size_videos: int):
     videosfile = cf.data_dir + 'videos-large.csv'
     input_file = csv.DictReader(open(videosfile, encoding='utf-8'))
     contador_datos = 0
-    for video in input_file:
-        model.addVideo(catalog, video)
+    for video_leido in input_file:
+        video_agregar = {}
+        info_deseada = ['title','video_id', 'trending_date', 'category_id', 'views', 'channel_title', 'trending_date', 'country', 'likes', 'dislkes']
+        for info in info_deseada:
+            video_agregar[info] = video_leido[info]
+        model.addVideo(catalog, video_agregar)
         contador_datos += 1
         if contador_datos >= size_videos:
             break
@@ -66,9 +71,9 @@ def loadCategorias(catalog):
     Carga las categorias del archivo.
     """
     catsfile = cf.data_dir + 'category-id.csv'
-    input_file = csv.DictReader(open(catsfile, encoding='utf-8'))
-    for cate in input_file:
-        model.addCategoria(catalog, cate)
+    input_file = csv.DictReader(open(catsfile, encoding='utf-8'), delimiter = '\t')
+    for cate_leida in input_file:
+        model.addCategoria(catalog, cate_leida)
 
 
 
@@ -96,3 +101,6 @@ def getMostViewed(catalog, number, metodo="shell"):
     sortVideos(sublista, metodo, "vistas")
 
     return sublista
+
+def primer_video(catalog):
+    return model.primer_video(catalog)
