@@ -100,7 +100,7 @@ while True:
             primer_video = controller.primer_video(catalog)
             print('El primer video cargado es:')
             print("Titulo: " + primer_video["title"] + ", Canal: " + primer_video["channel_title"] + ", Fecha de tendencia: " + \
-                primer_video["trending_date"] + ", País: " + primer_video["country"] + ", Vistas: " + primer_video["views"] + \
+                str(primer_video["trending_date"]) + ", País: " + primer_video["country"] + ", Vistas: " + primer_video["views"] + \
                     ", Likes: " + primer_video["likes"] + ", Dislikes: " + primer_video["dislikes"])
         else:
             print('Los datos ya han sido cargados, recuerda que el programa solo tiene permitido cargar\

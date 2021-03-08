@@ -23,7 +23,7 @@
 import config as cf
 import model
 import csv
-import datetime
+from datetime import datetime
 
 
 """
@@ -58,10 +58,11 @@ def loadVideos(catalog, size_videos: int):
     contador_datos = 0
     for video_leido in input_file:
         video_agregar = {}
-        info_deseada = ['title','video_id', 'trending_date', 'category_id', 'views', 'channel_title', 'trending_date',\
+        info_deseada = ['title','video_id', 'trending_date', 'category_id', 'views', 'channel_title', \
              'country', 'likes', 'dislikes']
         for info in info_deseada:
             video_agregar[info] = video_leido[info]
+        video_agregar['trending_date'] = datetime.strptime(video_leido['trending_date'], '%y.%d.%m').date()
         model.addVideo(catalog, video_agregar)
         contador_datos += 1
         if contador_datos >= size_videos:
