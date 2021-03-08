@@ -98,11 +98,11 @@ while True:
         print("Buscando los TOP ?: ")
         ha_escogido_tamaño = False
         while not ha_escogido_tamaño:
-            tamaño = int(input(""))
-            if tamaño <= n:
+            tamaño_muestra = int(input(""))
+            if tamaño_muestra <= n:
                 ha_escogido_tamaño = True
             else:
-                print("Recuerda que hay " + str(n) + "libro cargados")
+                print("Recuerda que hay " + str(n) + " videos cargados")
         print("¿Cual algoritmo deseas usar para organizar los videos?")
         ha_escogido_metodo = False
         print("1: Shell Sort (Recomendado)")
@@ -129,14 +129,27 @@ while True:
                 metodo = 'merge'
             else:
                 print("Por favor escoge una de las tres opciones de algoritmos de ordenamiento")
+        ha_escogido_tamaño_a_mostrar = False
+        print("Aunque se organizaran " + str(tamaño_muestra) + " videos, puedes escoger cuantos mostrar en pantalla:")
+        while not ha_escogido_tamaño_a_mostrar:
+            tamaño_a_mostrar = int(input(""))
+            if tamaño_a_mostrar <= tamaño_muestra :
+                ha_escogido_tamaño_a_mostrar = True
+            else:
+                print("Recuerda que organizaras " + str(tamaño_muestra) + " videos")
+        print("¿Cual algoritmo deseas usar para organizar los videos?")
+        ha_escogido_metodo = False
         print("Organizando datos con {}sort, por favor espera...".format(str(metodo)))
         time_1 = time.process_time()
-        mas_vistos = controller.getMostViewed(catalog, tamaño, metodo)
+        mas_vistos = controller.getMostViewed(catalog, tamaño_muestra, metodo)
         time_2 = time.process_time()
         posicion_imprimir = 1
         for video in lt.iterator(mas_vistos):
-            print(str(posicion_imprimir),":" + "Titulo:" + video["title"] + "Vistas:" + video["views"])
+            print(str(posicion_imprimir),": " + "Titulo: " + video["title"] + "  ,  Vistas: " + video["views"])
             posicion_imprimir += 1
+            if posicion_imprimir > tamaño_a_mostrar:
+                break
+
         
         print('Milisegundos de carga :{}'.format(str((time_2-time_1)*1000)))
         

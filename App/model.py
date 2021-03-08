@@ -87,7 +87,7 @@ def cmpVideosByViews(video1, video2):
 
 # Funciones de ordenamiento
 
-def sortVideos(catalog, metodo, orden):
+def sortList(tad_lista, metodo, orden):
     if orden == "vistas":
         funcion_comp = cmpVideosByViews
     '''
@@ -95,12 +95,12 @@ def sortVideos(catalog, metodo, orden):
         funcion_comp = cmpVideosBy_criterio
     '''
     if metodo == "shell":
-        shell.sort(catalog['videos'], funcion_comp)
+        shell.sort(tad_lista, funcion_comp)
     if metodo == "selection":
-        selection.sort(catalog['videos'], funcion_comp)
+        selection.sort(tad_lista, funcion_comp)
     if metodo == "insertion":
-        insertion.sort(catalog['videos'], funcion_comp)
+        insertion.sort(tad_lista, funcion_comp)
     if metodo == "quick":
-        quick.sort(catalog['videos'], funcion_comp)
+        quick.sort(tad_lista, funcion_comp)
     if metodo == "merge":
-        merge.sort(catalog['videos'], funcion_comp)
+        merge.sort(tad_lista, funcion_comp)
