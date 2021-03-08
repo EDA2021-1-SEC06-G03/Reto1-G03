@@ -76,11 +76,14 @@ def subListVideos(catalog, pos, number):
     
     return lt.subList(videos, pos, number)
 
+def primer_video(catalog):
+    return lt.firstElement(catalog['videos'])
+
 # Funciones utilizadas para comparar elementos dentro de una lista
 
 
 def cmpVideosByViews(video1, video2):
-    return (float(video1['views']) > float(video2['views']))
+    return (int(video1['views']) > int(video2['views']))
 
 #def cmpVideosBy_criterio(video1, video2):
 #    return (float(video1['criterio']) > float(video2['criterio']))

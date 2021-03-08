@@ -91,6 +91,15 @@ while True:
         print('Videos cargados: ' + str(lt.size(catalog['videos'])))
         print('Categorias cargadas: ' + str(lt.size(catalog['categorias'])))
         print('Milisegundos de carga :{}'.format(str((time_2-time_1)*1000)))
+        print('Las categorias cargadas son :')
+        posicion_imprimir = 1
+        for cate in lt.iterator(catalog['categorias']):
+            print(str(posicion_imprimir),": " + "ID: " + cate["id"] + "  ,  Nombre: " + cate["name"])
+            posicion_imprimir += 1
+        primer_video = controller.primer_video(catalog)
+        print('El primer video cargado es:')
+        print("Titulo: " + primer_video["title"] + ", Vistas: " + primer_video["views"])
+        
         
 
     elif int(inputs[0]) == 2:
