@@ -64,41 +64,47 @@ while True:
     printMenu()
     inputs = input('Seleccione una opción para continuar\n')
     if int(inputs[0]) == 1:
-        print("¿Cual estructura de datos deseas usar para guardar los videos?")
-        ha_escogido = False
-        while not ha_escogido:
-            print("1: Arreglo (Recomendado)")
-            print("2: Lista Enlazada")
-            escogencia = str(input(""))
-            if escogencia == "1":
-                ha_escogido = True
-                estructura = 'ARRAY_LIST'
-            elif escogencia == "2":
-                ha_escogido = True
-                estructura = 'LINKED_LIST'
-            else:
-                print("Por favor escoge una de las dos opciones")
-        
-        print("Cuantos videos desea cargar maximo: ")
-        cantidad_datos = int(input(""))
-        print("Cargando información de los archivos ....")
-        if cantidad_datos >= 375942:
-            print("Espera mientras se cargan todos los datos, recuerda que el archivo Large tiene {} videos".format(str(375942)))
-        time_1 = time.process_time()
-        catalog = initCatalog(estructura)
-        loadData(catalog, cantidad_datos)
-        time_2 = time.process_time()
-        print('Videos cargados: ' + str(lt.size(catalog['videos'])))
-        print('Categorias cargadas: ' + str(lt.size(catalog['categorias'])))
-        print('Milisegundos de carga :{}'.format(str((time_2-time_1)*1000)))
-        print('Las categorias cargadas son :')
-        posicion_imprimir = 1
-        for cate in lt.iterator(catalog['categorias']):
-            print(str(posicion_imprimir),": " + "ID: " + cate["id"] + "  ,  Nombre: " + cate["name"])
-            posicion_imprimir += 1
-        primer_video = controller.primer_video(catalog)
-        print('El primer video cargado es:')
-        print("Titulo: " + primer_video["title"] + ", Vistas: " + primer_video["views"])
+        if catalog == None:
+            print("¿Cual estructura de datos deseas usar para guardar los videos?")
+            ha_escogido = False
+            while not ha_escogido:
+                print("1: Arreglo (Recomendado)")
+                print("2: Lista Enlazada")
+                escogencia = str(input(""))
+                if escogencia == "1":
+                    ha_escogido = True
+                    estructura = 'ARRAY_LIST'
+                elif escogencia == "2":
+                    ha_escogido = True
+                    estructura = 'LINKED_LIST'
+                else:
+                    print("Por favor escoge una de las dos opciones")
+            
+            print("Cuantos videos desea cargar maximo: ")
+            cantidad_datos = int(input(""))
+            print("Cargando información de los archivos ....")
+            if cantidad_datos >= 375942:
+                print("Espera mientras se cargan todos los datos, recuerda que el archivo Large tiene {} videos".format(str(375942)))
+            time_1 = time.process_time()
+            catalog = initCatalog(estructura)
+            loadData(catalog, cantidad_datos)
+            time_2 = time.process_time()
+            print('Videos cargados: ' + str(lt.size(catalog['videos'])))
+            print('Categorias cargadas: ' + str(lt.size(catalog['categorias'])))
+            print('Milisegundos de carga :{}'.format(str((time_2-time_1)*1000)))
+            print('Las categorias cargadas son :')
+            posicion_imprimir = 1
+            for cate in lt.iterator(catalog['categorias']):
+                print(str(posicion_imprimir),": " + "ID: " + cate["id"] + "  ,  Nombre: " + cate["name"])
+                posicion_imprimir += 1
+            primer_video = controller.primer_video(catalog)
+            print('El primer video cargado es:')
+            print("Titulo: " + primer_video["title"] + ", Canal: " + primer_video["channel_title"] + ", Fecha de tendencia: " + \
+                primer_video["trending_date"] + ", País: " + primer_video["country"] + ", Vistas: " + primer_video["views"] + \
+                    ", Likes: " + primer_video["likes"] + ", Dislikes: " + primer_video["dislikes"])
+        else:
+            print('Los datos ya han sido cargados, recuerda que el programa solo tiene permitido cargar\
+los datos una vez de los archivos. \n Para recargar, reinicia la aplicación.')
         
         
 
