@@ -60,9 +60,10 @@ def loadVideos(catalog, size_videos: int):
     for video_leido in input_file:
         video_agregar = {}
         info_deseada = ['title','video_id', 'trending_date', 'category_id', 'views', 'channel_title', \
-             'country', 'likes', 'dislikes', 'category_id']
+             'country', 'likes', 'dislikes', 'publish_time']
         for info in info_deseada:
             video_agregar[info] = video_leido[info]
+        video_agregar['category_id'] = (video_leido['category_id']).replace(' ', '')
         video_agregar['trending_date'] = datetime.strptime(video_leido['trending_date'], '%y.%d.%m').date()
         model.addVideo(catalog, video_agregar)
         contador_datos += 1
@@ -105,9 +106,11 @@ def subListVideos(catalog, pos, number):
     return model.subListVideos(catalog, pos, number)
 
 def subListVideos_porPais(tad_lista, pais):
+    pais = pais.lower()
     return model.subListVideos_porPais(tad_lista, pais)
 
-def subListVideos_porCategoria(tad_lista, categoria_id:str):
+def subListVideos_porCategoria(tad_lista, categoria_id):
+    categoria_id = str(categoria_id)
     return model.subListVideos_porCategoria(tad_lista, categoria_id)
 
 
@@ -117,8 +120,11 @@ def getMostViewed(catalog, number, pais, categoria_id, metodo="merge"):
     Retorna una sublista de los videos mas vistos
     """
     sublista = subListVideos(catalog, 1, number)
+
     sublista = subListVideos_porCategoria(sublista, categoria_id)
+
     sublista = subListVideos_porPais(sublista, pais)
+
     sortVideos(sublista, metodo, "vistas")
 
     return sublista

@@ -104,14 +104,17 @@ def categoria_id_presente(catalog, categoria_id):
 def subListVideos_porCategoria(tad_lista, categoria_id:str):
     sublist = lt.newList(datastructure = tad_lista['type'])
     for video in lt.iterator(tad_lista):
-        if video['category_id'] == categoria_id:
+        
+        if str(video['category_id']) == categoria_id:
             lt.addLast(sublist, video)
+    return sublist
 
 def subListVideos_porPais(tad_lista, pais):
     sublist = lt.newList(datastructure = tad_lista['type'])
     for video in lt.iterator(tad_lista):
-        if video['pais'] == pais:
+        if video['country'] == pais:
             lt.addLast(sublist, video)
+    return sublist
 
 
 

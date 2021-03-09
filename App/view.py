@@ -80,9 +80,13 @@ while True:
                 else:
                     print("Por favor escoge una de las dos opciones")
             
-            print("Cuantos videos desea cargar maximo: ")
-            cantidad_datos = int(input(""))
+            print("Cuantos videos desea cargar maximo: (escribe T para todos)")
+            cantidad_datos = input("")
+
             print("Cargando información de los archivos ....")
+            if str(cantidad_datos).lower() == 't':
+                cantidad_datos = 375942
+            cantidad_datos = int(cantidad_datos)
             if cantidad_datos >= 375942:
                 print("Espera mientras se cargan todos los datos, recuerda que el archivo Large tiene {} videos".format(str(375942)))
             time_1 = time.process_time()
@@ -131,11 +135,14 @@ los datos una vez de los archivos. \n Para recargar, reinicia la aplicación.')
                 ha_escogido_categoria = True
             else:
                 print("Por favor ingresa el id de una categoria disponible.")
-        print("Buscando los TOP ?: ")
+        print("Revisar entre los primeros x videos: (escribe T para todos)")
         ha_escogido_tamaño = False
         while not ha_escogido_tamaño:
-            tamaño_muestra = int(input(""))
-            if tamaño_muestra <= n:
+            tamaño_muestra = input("")
+            if str(tamaño_muestra).lower() == 't':
+                ha_escogido_tamaño = True
+                tamaño_muestra = n
+            elif int(tamaño_muestra) <= n:
                 ha_escogido_tamaño = True
             else:
                 print("Recuerda que hay " + str(n) + " videos cargados")
@@ -177,11 +184,13 @@ los datos una vez de los archivos. \n Para recargar, reinicia la aplicación.')
         ha_escogido_metodo = False
         print("Organizando datos con {}sort, por favor espera...".format(str(metodo)))
         time_1 = time.process_time()
-        mas_vistos = controller.getMostViewed(catalog, tamaño_muestra, metodo, pais, categoria_id)
+        mas_vistos = controller.getMostViewed(catalog, tamaño_muestra, pais, categoria_id, metodo)
         time_2 = time.process_time()
         posicion_imprimir = 1
         for video in lt.iterator(mas_vistos):
-            print(str(posicion_imprimir),": " + "Titulo: " + video["title"] + "  ,  Vistas: " + video["views"])
+            print(str(posicion_imprimir),": " + "Titulo: " + video["title"] + ", Vistas: " + video["views"] + ", Fecha de tendencia: " \
++ str(video["trending_date"]) + ", Canal: " + video["channel_title"] + ", Likes: " + video["likes"] + ", Dislikes: " + video["dislikes"]\
++ "Fecha publicación: " + video["publish_time"])
             posicion_imprimir += 1
             if posicion_imprimir > tamaño_a_mostrar:
                 break
