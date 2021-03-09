@@ -75,7 +75,7 @@ def addPais(catalog, pais):
 # Funciones para creacion de datos
 def loadPaises(catalog):
     for video in lt.iterator(catalog['videos']):
-        pais = video['country']
+        pais = str(video['country']).lower()
         if not (pais_presente(catalog, pais)):
             addPais(catalog, pais)
 
@@ -94,8 +94,26 @@ def primer_video(catalog):
 def pais_presente(catalog, pais):
     return lt.isPresent(catalog['paises'], pais)
 
-def categoria_presente(catalog, categoria):
-    return lt.isPresent(catalog['categorias'], categoria)
+def categoria_id_presente(catalog, categoria_id):
+    id_presente = False
+    for categoria in lt.iterator(catalog['categorias']):
+        if categoria['id'] == categoria_id:
+            id_presente = True
+    return id_presente
+
+def subListVideos_porCategoria(tad_lista, categoria_id:str):
+    sublist = lt.newList(datastructure = tad_lista['type'])
+    for video in lt.iterator(tad_lista):
+        if video['category_id'] == categoria_id:
+            lt.addLast(sublist, video)
+
+def subListVideos_porPais(tad_lista, pais):
+    sublist = lt.newList(datastructure = tad_lista['type'])
+    for video in lt.iterator(tad_lista):
+        if video['pais'] == pais:
+            lt.addLast(sublist, video)
+
+
 
 # Funciones utilizadas para comparar elementos dentro de una lista
 
@@ -115,6 +133,8 @@ def sortList(tad_lista, metodo, orden):
     if orden == "criterio"
         funcion_comp = cmpVideosBy_criterio
     '''
+    #se puede hacer mas elegante haciendo un diccionario de funciones como valores y los nombres como llaves
+    #tanto lo del criterio como lo de los metodos
     if metodo == "shell":
         shell.sort(tad_lista, funcion_comp)
     if metodo == "selection":

@@ -60,7 +60,7 @@ def loadVideos(catalog, size_videos: int):
     for video_leido in input_file:
         video_agregar = {}
         info_deseada = ['title','video_id', 'trending_date', 'category_id', 'views', 'channel_title', \
-             'country', 'likes', 'dislikes']
+             'country', 'likes', 'dislikes', 'category_id']
         for info in info_deseada:
             video_agregar[info] = video_leido[info]
         video_agregar['trending_date'] = datetime.strptime(video_leido['trending_date'], '%y.%d.%m').date()
@@ -76,7 +76,11 @@ def loadCategorias(catalog):
     catsfile = cf.data_dir + 'category-id.csv'
     input_file = csv.DictReader(open(catsfile, encoding='utf-8'), delimiter = '\t')
     for cate_leida in input_file:
-        model.addCategoria(catalog, cate_leida)
+        cate_agregar = {}
+        info_deseada = ['id','name']
+        for info in info_deseada:
+            cate_agregar[info] = str(cate_leida[info]).lower()
+        model.addCategoria(catalog, cate_agregar)
 
 def loadPaises(catalog):
     """
@@ -100,13 +104,21 @@ def sortVideos(tad_lista, metodo, orden):
 def subListVideos(catalog, pos, number):
     return model.subListVideos(catalog, pos, number)
 
+def subListVideos_porPais(tad_lista, pais):
+    return model.subListVideos_porPais(tad_lista, pais)
 
-def getMostViewed(catalog, number, metodo="merge"):
+def subListVideos_porCategoria(tad_lista, categoria_id:str):
+    return model.subListVideos_porCategoria(tad_lista, categoria_id)
+
+
+def getMostViewed(catalog, number, pais, categoria_id, metodo="merge"):
     """
     Primero organiza todos los videos por vistas 
     Retorna una sublista de los videos mas vistos
     """
     sublista = subListVideos(catalog, 1, number)
+    sublista = subListVideos_porCategoria(sublista, categoria_id)
+    sublista = subListVideos_porPais(sublista, pais)
     sortVideos(sublista, metodo, "vistas")
 
     return sublista
@@ -117,5 +129,6 @@ def primer_video(catalog):
 def pais_presente(catalog, pais):
     return model.pais_presente(catalog, pais)
 
-def categoria_presente(catalog, categoria):
-    return model.categoria_presente(catalog, categoria)
+def categoria_id_presente(catalog, categoria_id):
+    categoria_id = str(categoria_id)
+    return model.categoria_id_presente(catalog, categoria_id)

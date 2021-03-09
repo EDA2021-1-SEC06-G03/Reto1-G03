@@ -123,14 +123,14 @@ los datos una vez de los archivos. \n Para recargar, reinicia la aplicación.')
                 ha_escogido_pais = True
             else:
                 print("Por favor ingresa un pais disponible.")
-        print("Buscando en la categoria: ")
+        print("Buscando en la categoria de ID: ")
         ha_escogido_categoria = False
         while not ha_escogido_categoria:
-            categoria = input("")
-            if controller.categoria_presente(catalog, categoria):
+            categoria_id = input("")
+            if controller.categoria_id_presente(catalog, categoria_id):
                 ha_escogido_categoria = True
             else:
-                print("Por favor ingresa una categoria disponible.")
+                print("Por favor ingresa el id de una categoria disponible.")
         print("Buscando los TOP ?: ")
         ha_escogido_tamaño = False
         while not ha_escogido_tamaño:
@@ -177,7 +177,7 @@ los datos una vez de los archivos. \n Para recargar, reinicia la aplicación.')
         ha_escogido_metodo = False
         print("Organizando datos con {}sort, por favor espera...".format(str(metodo)))
         time_1 = time.process_time()
-        mas_vistos = controller.getMostViewed(catalog, tamaño_muestra, metodo, pais, categoria)
+        mas_vistos = controller.getMostViewed(catalog, tamaño_muestra, metodo, pais, categoria_id)
         time_2 = time.process_time()
         posicion_imprimir = 1
         for video in lt.iterator(mas_vistos):
