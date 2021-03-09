@@ -59,11 +59,10 @@ def loadVideos(catalog, size_videos: int):
     contador_datos = 0
     for video_leido in input_file:
         video_agregar = {}
-        info_deseada = ['title','video_id', 'trending_date', 'category_id', 'views', 'channel_title', \
+        info_deseada = ['title','video_id', 'category_id', 'views', 'channel_title', \
              'country', 'likes', 'dislikes', 'publish_time']
         for info in info_deseada:
             video_agregar[info] = video_leido[info]
-        video_agregar['category_id'] = (video_leido['category_id']).replace(' ', '')
         video_agregar['trending_date'] = datetime.strptime(video_leido['trending_date'], '%y.%d.%m').date()
         model.addVideo(catalog, video_agregar)
         contador_datos += 1
