@@ -50,7 +50,7 @@ def loadData(catalog, size_videos: int, estructura='ARRAY_LIST'):
 def printMenu():
     print("Bienvenido")
     print("1- Cargar información en el catálogo")
-    print("2- Consultar top x videos por vistas")
+    print("2- Consultar top x videos por vistas, dado el país y la categoría")
     print("3- Consultar los videos de un canal")
     print("4- Videos por categoria")
     print("0- Salir")
@@ -102,6 +102,11 @@ while True:
             print("Titulo: " + primer_video["title"] + ", Canal: " + primer_video["channel_title"] + ", Fecha de tendencia: " + \
                 str(primer_video["trending_date"]) + ", País: " + primer_video["country"] + ", Vistas: " + primer_video["views"] + \
                     ", Likes: " + primer_video["likes"] + ", Dislikes: " + primer_video["dislikes"])
+            print('Los paises distintos de los videos son :')
+            contador_paises = 1
+            for pais in lt.iterator(catalog['paises']):
+                print(str(contador_paises),':',pais)
+                contador_paises += 1
         else:
             print('Los datos ya han sido cargados, recuerda que el programa solo tiene permitido cargar\
 los datos una vez de los archivos. \n Para recargar, reinicia la aplicación.')
@@ -110,6 +115,22 @@ los datos una vez de los archivos. \n Para recargar, reinicia la aplicación.')
 
     elif int(inputs[0]) == 2:
         n = lt.size(catalog['videos'])
+        print("Buscando en el país: ")
+        ha_escogido_pais = False
+        while not ha_escogido_pais:
+            pais = input("")
+            if controller.pais_presente(catalog, pais):
+                ha_escogido_pais = True
+            else:
+                print("Por favor ingresa un pais disponible.")
+        print("Buscando en la categoria: ")
+        ha_escogido_categoria = False
+        while not ha_escogido_categoria:
+            categoria = input("")
+            if controller.categoria_presente(catalog, categoria):
+                ha_escogido_categoria = True
+            else:
+                print("Por favor ingresa una categoria disponible.")
         print("Buscando los TOP ?: ")
         ha_escogido_tamaño = False
         while not ha_escogido_tamaño:
@@ -156,7 +177,7 @@ los datos una vez de los archivos. \n Para recargar, reinicia la aplicación.')
         ha_escogido_metodo = False
         print("Organizando datos con {}sort, por favor espera...".format(str(metodo)))
         time_1 = time.process_time()
-        mas_vistos = controller.getMostViewed(catalog, tamaño_muestra, metodo)
+        mas_vistos = controller.getMostViewed(catalog, tamaño_muestra, metodo, pais, categoria)
         time_2 = time.process_time()
         posicion_imprimir = 1
         for video in lt.iterator(mas_vistos):

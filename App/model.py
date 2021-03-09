@@ -49,9 +49,11 @@ def newCatalog(estructura):
     generos y libros. Retorna el catalogo inicializado.
     """
     catalog = {'videos': None,
-               'categorias': None,}
-    catalog['videos'] = lt.newList(estructura, cmpfunction=NotImplemented)
-    catalog['categorias'] = lt.newList('ARRAY_LIST', cmpfunction=NotImplemented)
+               'categorias': None,
+               'paises': None}
+    catalog['videos'] = lt.newList(estructura)
+    catalog['categorias'] = lt.newList('ARRAY_LIST')
+    catalog['paises'] = lt.newList('ARRAY_LIST')
 
     return catalog
 
@@ -65,7 +67,17 @@ def addCategoria(catalog, cate):
     # Se adiciona la categoria a la lista de categorias
     lt.addLast(catalog['categorias'], cate)
 
+def addPais(catalog, pais):
+    # Se adiciona la categoria a la lista de categorias
+    lt.addLast(catalog['paises'], pais)
+
+
 # Funciones para creacion de datos
+def loadPaises(catalog):
+    for video in lt.iterator(catalog['videos']):
+        pais = video['country']
+        if not (pais_presente(catalog, pais)):
+            addPais(catalog, pais)
 
 # Funciones de consulta
 def subListVideos(catalog, pos, number):
@@ -78,6 +90,12 @@ def subListVideos(catalog, pos, number):
 
 def primer_video(catalog):
     return lt.firstElement(catalog['videos'])
+
+def pais_presente(catalog, pais):
+    return lt.isPresent(catalog['paises'], pais)
+
+def categoria_presente(catalog, categoria):
+    return lt.isPresent(catalog['categorias'], categoria)
 
 # Funciones utilizadas para comparar elementos dentro de una lista
 

@@ -46,7 +46,8 @@ def loadData(catalog, size_videos: int):
     """
     loadVideos(catalog, size_videos)
     loadCategorias(catalog)
-    #sortVideos(catalog, shell, vistas)
+    loadPaises(catalog)
+    #sortVideos(catalog, merge, vistas)
 
 
 def loadVideos(catalog, size_videos: int):
@@ -77,6 +78,12 @@ def loadCategorias(catalog):
     for cate_leida in input_file:
         model.addCategoria(catalog, cate_leida)
 
+def loadPaises(catalog):
+    """
+    Carga los distintos paises del archivo.
+    """
+    model.loadPaises(catalog)
+
 
 
 # Funciones de ordenamiento
@@ -94,7 +101,7 @@ def subListVideos(catalog, pos, number):
     return model.subListVideos(catalog, pos, number)
 
 
-def getMostViewed(catalog, number, metodo="shell"):
+def getMostViewed(catalog, number, metodo="merge"):
     """
     Primero organiza todos los videos por vistas 
     Retorna una sublista de los videos mas vistos
@@ -106,3 +113,9 @@ def getMostViewed(catalog, number, metodo="shell"):
 
 def primer_video(catalog):
     return model.primer_video(catalog)
+
+def pais_presente(catalog, pais):
+    return model.pais_presente(catalog, pais)
+
+def categoria_presente(catalog, categoria):
+    return model.categoria_presente(catalog, categoria)
