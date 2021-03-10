@@ -23,6 +23,7 @@
 import config as cf
 import model
 import csv
+from DISClib.ADT import list as lt
 from datetime import datetime
 
 
@@ -90,8 +91,10 @@ def loadPaises(catalog):
 
 
 
+
+
 # Funciones de ordenamiento
-def sortVideos(tad_lista, metodo, orden):
+def sortVideos(tad_lista, metodo:str, orden:str):
     """
     Ordena los videos por views
     metodo se refiere al algoritmo de sorting
@@ -137,3 +140,18 @@ def pais_presente(catalog, pais):
 def categoria_id_presente(catalog, categoria_id):
     categoria_id = str(categoria_id)
     return model.categoria_id_presente(catalog, categoria_id)
+
+
+def ObtenerVideosDistintos(tad_lista):
+    """
+    Carga los distintos videos del archivo.
+    """
+    return model.ObtenerVideosDistintos(tad_lista)
+
+def getMostTrending(catalog, pais):
+    sublista = subListVideos_porPais(catalog['videos'], pais)
+    sortVideos(sublista, 'merge', 'video_id')
+    distintos_en_sublista = ObtenerVideosDistintos(sublista)
+    model.getRepeticiones(sublista, distintos_en_sublista)
+    return model.getMaxReps(distintos_en_sublista)
+

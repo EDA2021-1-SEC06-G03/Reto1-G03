@@ -51,8 +51,9 @@ def printMenu():
     print("Bienvenido")
     print("1- Cargar información en el catálogo")
     print("2- Consultar top x videos por vistas, dado el país y la categoría")
-    print("3- Consultar los videos de un canal")
+    print("3- Consultar el video con mayor cantidad de dias de tendencia de un pais")
     print("4- Videos por categoria")
+    print("5- ....")
     print("0- Salir")
 
 catalog = None
@@ -200,12 +201,29 @@ los datos una vez de los archivos. \n Para recargar, reinicia la aplicación.')
         
     
     elif int(inputs[0]) == 3:
-        channelname = input("Nombre del canal a buscar: ")
-        pass
+        print("Buscando en el país: ")
+        ha_escogido_pais = False
+        while not ha_escogido_pais:
+            pais = input("")
+            if controller.pais_presente(catalog, pais):
+                ha_escogido_pais = True
+            else:
+                print("Por favor ingresa un pais disponible.")
+        mas_trending = controller.getMostTrending(catalog, pais)
+        print("El video con mayor cantidad de dias en tendencia en {} es : ".format(pais))
+        '''print("Titulo: " + mas_trending["title"] + ", Canal: " + mas_trending["channel_title"] + ", Dias en tendencia: "\
+ + str(mas_trending["repeticiones"]) + ", Pais: " + mas_trending["country"])'''
+        print(mas_trending['video_id'])
+        
+        
     
     elif int(inputs[0]) == 4:
         label = input("Categoria a buscar: ")
         pass
+    
+    elif int(inputs[0]) == 5:
+        label = input("Req4 ")
+        pass 
 
     else:
         sys.exit(0)

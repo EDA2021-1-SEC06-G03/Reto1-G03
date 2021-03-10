@@ -52,8 +52,9 @@ def newCatalog(estructura):
                'categorias': None,
                'paises': None}
     catalog['videos'] = lt.newList(estructura)
-    catalog['categorias'] = lt.newList('ARRAY_LIST')
-    catalog['paises'] = lt.newList('ARRAY_LIST')
+    catalog['categorias'] = lt.newList(datastructure = 'ARRAY_LIST')
+    catalog['paises'] = lt.newList(datastructure = 'ARRAY_LIST')
+    catalog['videos_distintos'] = lt.newList(datastructure = 'ARRAY_LIST')
 
     return catalog
 
@@ -68,8 +69,10 @@ def addCategoria(catalog, cate):
     lt.addLast(catalog['categorias'], cate)
 
 def addPais(catalog, pais):
-    # Se adiciona la categoria a la lista de categorias
+    # Se adiciona el pais a la lista de paises
     lt.addLast(catalog['paises'], pais)
+
+
 
 
 # Funciones para creacion de datos
@@ -91,10 +94,10 @@ def subListVideos(catalog, pos, number):
 def primer_video(catalog):
     return lt.firstElement(catalog['videos'])
 
-def pais_presente(catalog, pais):
+def pais_presente(catalog, pais:str):
     return lt.isPresent(catalog['paises'], pais)
 
-def categoria_id_presente(catalog, categoria_id):
+def categoria_id_presente(catalog, categoria_id:str):
     id_presente = False
     for categoria in lt.iterator(catalog['categorias']):
         if categoria['id'] == categoria_id:
@@ -109,12 +112,53 @@ def subListVideos_porCategoria(tad_lista, categoria_id:str):
             lt.addLast(sublist, video)
     return sublist
 
-def subListVideos_porPais(tad_lista, pais):
+def subListVideos_porPais(tad_lista, pais:str):
     sublist = lt.newList(datastructure = tad_lista['type'])
     for video in lt.iterator(tad_lista):
         if video['country'] == pais:
             lt.addLast(sublist, video)
     return sublist
+
+def ObtenerVideosDistintos(tad_lista):
+    videos_distintos = lt.newList(datastructure = 'ARRAY_LIST', cmpfunction = cmpVideosByVideoID)
+    for video in lt.iterator(tad_lista):
+        video_agregar = {}
+        info_deseada = ['title','video_id', 'category_id', 'views', 'channel_title', \
+'country', 'likes', 'dislikes', 'publish_time']
+             
+        for info in info_deseada:
+            video_agregar[info] = video[info]
+        if not (lt.isPresent(videos_distintos, video_agregar)):
+            lt.addLast(videos_distintos, video_agregar)
+    return videos_distintos
+
+def getRepeticiones(sublista, distintos_en_sublista):
+    for video_unico in lt.iterator(distintos_en_sublista):
+        encontrado = False
+        repeticiones = 0
+        for video in lt.iterator(sublista):
+            if video['video_id'] == video_unico['video_id']:
+                encontrado = True
+                repeticiones += 1
+            else:
+                if encontrado == True:
+                    break
+        video_unico['repeticiones'] = repeticiones
+
+
+
+def getMaxReps(sublista):
+    maximo_valor = 0
+    maximo_apuntador = lt.firstElement(sublista)
+    for video in lt.iterator(sublista):
+        if video['repeticiones'] > maximo_valor:
+            maximo_valor = video['repeticiones']
+            maximo_apuntador = video
+    return maximo_apuntador
+
+
+
+            
 
 
 
@@ -124,6 +168,9 @@ def subListVideos_porPais(tad_lista, pais):
 def cmpVideosByViews(video1, video2):
     return (int(video1['views']) > int(video2['views']))
 
+def cmpVideosByVideoID(video1, video2):
+    return (str(video1['video_id']) > str(video2['video_id']))
+
 #def cmpVideosBy_criterio(video1, video2):
 #    return (float(video1['criterio']) > float(video2['criterio']))
 
@@ -132,6 +179,8 @@ def cmpVideosByViews(video1, video2):
 def sortList(tad_lista, metodo, orden):
     if orden == "vistas":
         funcion_comp = cmpVideosByViews
+    if orden == "video_id":
+        funcion_comp = cmpVideosByVideoID
     '''
     if orden == "criterio"
         funcion_comp = cmpVideosBy_criterio
@@ -148,3 +197,19 @@ def sortList(tad_lista, metodo, orden):
         quick.sort(tad_lista, funcion_comp)
     if metodo == "merge":
         merge.sort(tad_lista, funcion_comp)
+
+
+'''
+lista = lt.newList()
+lt.addLast(lista, {'.':'fecha1', 'video_id': 'id1'})
+lt.addLast(lista, {'.':'fecha2', 'video_id': 'id1'})
+lt.addLast(lista, {'.':'fecha4', 'video_id': 'id1'})
+lt.addLast(lista, {'.':'fecha5', 'video_id': 'id1'})
+lt.addLast(lista, {'.':'fecha3', 'video_id': 'id2'})
+
+distintos = ObtenerVideosDistintos(lista)
+getRepeticiones(lista, distintos)
+for i in lt.iterator(distintos):
+    print(i['repeticiones'])
+print(getMaxReps(distintos)['repeticiones'])
+info_deseada = ['video_id', '.']'''
