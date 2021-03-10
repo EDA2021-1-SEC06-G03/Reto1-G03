@@ -120,19 +120,21 @@ def subListVideos_porPais(tad_lista, pais:str):
     return sublist
 
 def ObtenerVideosDistintos(tad_lista):
-    videos_distintos = lt.newList(datastructure = 'ARRAY_LIST', cmpfunction = cmpVideosByVideoID)
+    videos_distintos = lt.newList(datastructure = 'ARRAY_LIST')
     primero = lt.firstElement(tad_lista)
     primero['repeticiones'] = 1
     lt.addLast(videos_distintos, primero)
     for video in lt.iterator(tad_lista):
         video_agregar = {}
         info_deseada = ['title','video_id', 'category_id', 'views', 'channel_title', \
-'country', 'likes', 'dislikes', 'publish_time']
+'country', 'likes', 'dislikes', 'publish_time', 'trending_date', 'tags']
         
         for info in info_deseada:
             video_agregar[info] = video[info]
         if   lt.lastElement(videos_distintos)['video_id'] == video_agregar['video_id']:
                 lt.lastElement(videos_distintos)['repeticiones'] = lt.lastElement(videos_distintos)['repeticiones'] + 1
+                lt.lastElement(videos_distintos)['likes'] = video_agregar['likes']
+                lt.lastElement(videos_distintos)['views'] = video_agregar['views']
         else :
             video_agregar['repeticiones'] = 1
             lt.addLast(videos_distintos, video_agregar)
@@ -165,7 +167,15 @@ def getMaxReps(sublista):
     else:
         return None
 
+def video_tiene_tag(video, tag:str):
+    return lt.isPresent(video['tags'], tag)
 
+def subListVideos_porTag(tad_lista, tag:str):
+    sublist = lt.newList(datastructure = tad_lista['type'])
+    for video in lt.iterator(tad_lista):
+        if video_tiene_tag(video, tag):
+            lt.addLast(sublist, video)
+    return sublist
 
             
 
@@ -180,16 +190,21 @@ def cmpVideosByViews(video1, video2):
 def cmpVideosByVideoID(video1, video2):
     return (str(video1['video_id']) > str(video2['video_id']))
 
+def cmpVideosByLikes(video1, video2):
+    return (int(video1['likes']) > int(video2['likes']))
+
 #def cmpVideosBy_criterio(video1, video2):
 #    return (float(video1['criterio']) > float(video2['criterio']))
 
 # Funciones de ordenamiento
 
-def sortList(tad_lista, metodo, orden):
+def sortList(tad_lista, metodo, orden='vistas'):
     if orden == "vistas":
         funcion_comp = cmpVideosByViews
     if orden == "video_id":
         funcion_comp = cmpVideosByVideoID
+    if orden == "likes":
+        funcion_comp = cmpVideosByLikes
     '''
     if orden == "criterio"
         funcion_comp = cmpVideosBy_criterio

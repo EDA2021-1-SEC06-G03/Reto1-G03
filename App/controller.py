@@ -67,7 +67,8 @@ def loadVideos(catalog, size_videos: int):
         video_agregar['trending_date'] = datetime.strptime(video_leido['trending_date'], '%y.%d.%m').date()
         
         video_agregar['tags'] = lt.newList('ARRAY_LIST')
-        for tag in video_leido['tags'].split('""|""'):
+        for tag in video_leido['tags'].split('"|"'):
+            tag.replace('"','')
             lt.addLast(video_agregar['tags'], tag)
 
         model.addVideo(catalog, video_agregar)
@@ -94,7 +95,6 @@ def loadPaises(catalog):
     Carga los distintos paises del archivo.
     """
     model.loadPaises(catalog)
-
 
 
 
@@ -133,6 +133,8 @@ def getMostViewed(catalog, number, pais, categoria_id, metodo="merge"):
 
     sublista = subListVideos_porPais(sublista, pais)
 
+    sublista = ObtenerVideosDistintos(sublista)
+    
     sortVideos(sublista, metodo, "vistas")
 
     return sublista
@@ -152,11 +154,29 @@ def ObtenerVideosDistintos(tad_lista):
     """
     Carga los distintos videos del archivo.
     """
+    sortVideos(tad_lista, 'merge', "video_id")
     return model.ObtenerVideosDistintos(tad_lista)
 
 def getMostTrending(catalog, pais):
     sublista = subListVideos_porPais(catalog['videos'], pais)
     sortVideos(sublista, 'merge', 'video_id')
-    distintos_en_sublista = ObtenerVideosDistintos(sublista)
-    return model.getMaxReps(distintos_en_sublista)
+    sublista = ObtenerVideosDistintos(sublista)
+    return model.getMaxReps(sublista)
+
+def subListVideos_porTag(tad_lista, tag:str):
+    return model.subListVideos_porTag(tad_lista, tag)
+
+def getMostLiked_porPaisyTags(catalog, number, pais, tag, metodo="merge"):
+
+    sublista = subListVideos(catalog, 1, number)
+
+    sublista = subListVideos_porPais(sublista, pais)
+
+    sublista = subListVideos_porTag(sublista, tag)
+
+    sublista = ObtenerVideosDistintos(sublista)  
+
+    sortVideos(sublista, metodo, "likes")  
+
+    return sublista
 

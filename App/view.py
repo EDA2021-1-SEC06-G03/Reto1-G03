@@ -53,7 +53,7 @@ def printMenu():
     print("2- Consultar top x videos por vistas, dado el país y la categoría")
     print("3- Consultar el video con mayor cantidad de dias de tendencia de un pais")
     print("4- Videos por categoria")
-    print("5- ....")
+    print("5- Consultar top x videos por LIKES, dado el país y UN tag")
     print("0- Salir")
 
 catalog = None
@@ -143,13 +143,14 @@ los datos una vez de los archivos. \n Para recargar, reinicia la aplicación.')
             if str(tamaño_muestra).lower() == 't':
                 ha_escogido_tamaño = True
                 tamaño_muestra = n
-            elif int(tamaño_muestra) <= n:
+            tamaño_muestra = int(tamaño_muestra)
+            if tamaño_muestra <= n:
                 ha_escogido_tamaño = True
             else:
                 print("Recuerda que hay " + str(n) + " videos cargados")
         print("¿Cual algoritmo deseas usar para organizar los videos?")
         ha_escogido_metodo = False
-        print("1: Shell Sort (Recomendado)")
+        print("1: Shell Sort ")
         print("2: Selection Sort")
         print("3: Insertion Sort")
         print("4: Quick (Recomendado) Sort")
@@ -172,7 +173,7 @@ los datos una vez de los archivos. \n Para recargar, reinicia la aplicación.')
                 ha_escogido_metodo = True
                 metodo = 'merge'
             else:
-                print("Por favor escoge una de las tres opciones de algoritmos de ordenamiento")
+                print("Por favor escoge una de las cinco opciones de algoritmos de ordenamiento")
         ha_escogido_tamaño_a_mostrar = False
         print("Aunque se organizaran " + str(tamaño_muestra) + " videos, puedes escoger cuantos mostrar en pantalla:")
         while not ha_escogido_tamaño_a_mostrar:
@@ -181,7 +182,6 @@ los datos una vez de los archivos. \n Para recargar, reinicia la aplicación.')
                 ha_escogido_tamaño_a_mostrar = True
             else:
                 print("Recuerda que organizaras " + str(tamaño_muestra) + " videos")
-        print("¿Cual algoritmo deseas usar para organizar los videos?")
         ha_escogido_metodo = False
         print("Organizando datos con {}sort, por favor espera...".format(str(metodo)))
         time_1 = time.process_time()
@@ -190,13 +190,11 @@ los datos una vez de los archivos. \n Para recargar, reinicia la aplicación.')
         posicion_imprimir = 1
         for video in lt.iterator(mas_vistos):
             print(str(posicion_imprimir),": " + "Titulo: " + video["title"] + ", Vistas: " + video["views"] + ", Fecha de tendencia: " \
-+ str(video["trending_date"]) + ", Canal: " + video["channel_title"] + ", Likes: " + video["likes"] + ", Dislikes: " + video["dislikes"]\
-+ "Fecha publicación: " + video["publish_time"])
++ str(video["trending_date"]) + ", Canal: " + video["channel_title"] + ", Likes: " + video["likes"] + ", Dislikes: "\
++ video["dislikes"] + ", Fecha publicación: " + video["publish_time"])
             posicion_imprimir += 1
             if posicion_imprimir > tamaño_a_mostrar:
                 break
-
-        
         print('Milisegundos de carga :{}'.format(str((time_2-time_1)*1000)))
         
     
@@ -226,8 +224,84 @@ los datos una vez de los archivos. \n Para recargar, reinicia la aplicación.')
         pass
     
     elif int(inputs[0]) == 5:
-        label = input("Req4 ")
-        pass 
+        n = lt.size(catalog['videos'])
+        print("Buscando en el país: ")
+        ha_escogido_pais = False
+        while not ha_escogido_pais:
+            pais = input("")
+            if controller.pais_presente(catalog, pais):
+                ha_escogido_pais = True
+            else:
+                print("Por favor ingresa un pais disponible.")
+        print("Buscando videos con el tag: ")
+        tag = str(input(''))
+        print("Revisar entre los primeros x videos: (escribe T para todos)")
+        ha_escogido_tamaño = False
+        while not ha_escogido_tamaño:
+            tamaño_muestra = input("")
+            if str(tamaño_muestra).lower() == 't':
+                ha_escogido_tamaño = True
+                tamaño_muestra = n
+            tamaño_muestra = int(tamaño_muestra)
+            if tamaño_muestra <= n:
+                ha_escogido_tamaño = True
+            else:
+                print("Recuerda que hay " + str(n) + " videos cargados")
+        print("¿Cual algoritmo deseas usar para organizar los videos?")
+        ha_escogido_metodo = False
+        print("1: Shell Sort ")
+        print("2: Selection Sort")
+        print("3: Insertion Sort")
+        print("4: Quick (Recomendado) Sort")
+        print("5: Merge (Recomendado) Sort")
+        while not ha_escogido_metodo:
+            escogencia = str(input(""))
+            if escogencia == "1":
+                ha_escogido_metodo = True
+                metodo = 'shell'
+            elif escogencia == "2":
+                ha_escogido_metodo = True
+                metodo = 'selection'
+            elif escogencia == "3":
+                ha_escogido_metodo = True
+                metodo = 'insertion'
+            elif escogencia == "4":
+                ha_escogido_metodo = True
+                metodo = 'quick'
+            elif escogencia == "5":
+                ha_escogido_metodo = True
+                metodo = 'merge'
+            else:
+                print("Por favor escoge una de las cinco opciones de algoritmos de ordenamiento")
+        ha_escogido_tamaño_a_mostrar = False
+        print("Aunque se organizaran " + str(tamaño_muestra) + " videos, puedes escoger cuantos mostrar en pantalla:")
+        while not ha_escogido_tamaño_a_mostrar:
+            tamaño_a_mostrar = int(input(""))
+            if tamaño_a_mostrar <= tamaño_muestra :
+                ha_escogido_tamaño_a_mostrar = True
+            else:
+                print("Recuerda que organizaras " + str(tamaño_muestra) + " videos")
+        
+        ha_escogido_metodo = False
+        print("Organizando datos con {}sort, por favor espera...".format(str(metodo)))
+        time_1 = time.process_time()
+        mas_likes = controller.getMostLiked_porPaisyTags(catalog, tamaño_muestra, pais, tag, metodo)
+        time_2 = time.process_time()
+        posicion_imprimir = 1
+        for video in lt.iterator(mas_likes):
+            print(str(posicion_imprimir),": " + "Titulo: " + video["title"] + ", Vistas: " + video["views"] +\
+", Canal: " + video["channel_title"] + ", Likes: " + video["likes"] + ", Dislikes: " + video["dislikes"]\
++ "Fecha publicación: " + video["publish_time"])
+            print('Tags del video: ' )
+            for tag in lt.iterator(video['tags']):
+                print(tag)
+            posicion_imprimir += 1
+            if posicion_imprimir > tamaño_a_mostrar:
+                break
+        print('Milisegundos de carga :{}'.format(str((time_2-time_1)*1000)))
+        
+
+
 
     else:
         sys.exit(0)
