@@ -124,20 +124,23 @@ def ObtenerVideosDistintos(tad_lista):
     primero = lt.firstElement(tad_lista)
     primero['repeticiones'] = 1
     lt.addLast(videos_distintos, primero)
+    leidos = 1
     for video in lt.iterator(tad_lista):
-        video_agregar = {}
-        info_deseada = ['title','video_id', 'category_id', 'views', 'channel_title', \
-'country', 'likes', 'dislikes', 'publish_time', 'trending_date', 'tags']
-        
-        for info in info_deseada:
-            video_agregar[info] = video[info]
-        if   lt.lastElement(videos_distintos)['video_id'] == video_agregar['video_id']:
-                lt.lastElement(videos_distintos)['repeticiones'] = lt.lastElement(videos_distintos)['repeticiones'] + 1
-                lt.lastElement(videos_distintos)['likes'] = max(video_agregar['likes'], lt.lastElement(videos_distintos)['likes'])
-                lt.lastElement(videos_distintos)['views'] = max(video_agregar['views'], lt.lastElement(videos_distintos)['views'])
-        else :
-            video_agregar['repeticiones'] = 1
-            lt.addLast(videos_distintos, video_agregar)
+        if leidos > 1:
+            video_agregar = {}
+            info_deseada = ['title','video_id', 'category_id', 'views', 'channel_title', \
+    'country', 'likes', 'dislikes', 'publish_time', 'trending_date', 'tags']
+            
+            for info in info_deseada:
+                video_agregar[info] = video[info]
+            if   lt.lastElement(videos_distintos)['video_id'] == video_agregar['video_id']:
+                    lt.lastElement(videos_distintos)['repeticiones'] = lt.lastElement(videos_distintos)['repeticiones'] + 1
+                    lt.lastElement(videos_distintos)['likes'] = max(int(video_agregar['likes']), int(lt.lastElement(videos_distintos)['likes']))
+                    lt.lastElement(videos_distintos)['views'] = max(int(video_agregar['views']), int(lt.lastElement(videos_distintos)['views']))
+            else :
+                video_agregar['repeticiones'] = 1
+                lt.addLast(videos_distintos, video_agregar)
+        leidos += 1
     return videos_distintos
 
 '''def getRepeticiones(sublista, distintos_en_sublista):

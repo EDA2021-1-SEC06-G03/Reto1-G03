@@ -60,10 +60,15 @@ def loadVideos(catalog, size_videos: int):
     contador_datos = 0
     for video_leido in input_file:
         video_agregar = {}
-        info_deseada = ['title','video_id', 'category_id', 'views', 'channel_title', \
-             'country', 'likes', 'dislikes', 'publish_time']
-        for info in info_deseada:
+        info_deseada_strings = ['title','video_id', 'category_id', 'channel_title', \
+             'country', 'publish_time']
+        info_numerica = ['views', 'likes', 'dislikes']
+        for info in info_deseada_strings:
             video_agregar[info] = video_leido[info]
+        for info in info_numerica:
+            video_agregar[info] = video_leido[info]
+        
+        
         video_agregar['trending_date'] = datetime.strptime(video_leido['trending_date'], '%y.%d.%m').date()
         
         video_agregar['tags'] = lt.newList('ARRAY_LIST')

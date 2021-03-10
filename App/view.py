@@ -189,9 +189,9 @@ los datos una vez de los archivos. \n Para recargar, reinicia la aplicación.')
         time_2 = time.process_time()
         posicion_imprimir = 1
         for video in lt.iterator(mas_vistos):
-            print(str(posicion_imprimir),": " + "Titulo: " + video["title"] + ", Vistas: " + video["views"] + ", Fecha de tendencia: " \
-+ str(video["trending_date"]) + ", Canal: " + video["channel_title"] + ", Likes: " + video["likes"] + ", Dislikes: "\
-+ video["dislikes"] + ", Fecha publicación: " + video["publish_time"])
+            print(str(posicion_imprimir),": " + "Titulo: " + video["title"] + ", Vistas: " + str(video["views"]) + ", Fecha de tendencia: " \
++ str(video["trending_date"]) + ", Canal: " + video["channel_title"] + ", Likes: " + str(video["likes"]) + ", Dislikes: "\
++ str(video["dislikes"]) + ", Fecha publicación: " + video["publish_time"])
             posicion_imprimir += 1
             if posicion_imprimir > tamaño_a_mostrar:
                 break
@@ -289,8 +289,8 @@ los datos una vez de los archivos. \n Para recargar, reinicia la aplicación.')
         time_2 = time.process_time()
         posicion_imprimir = 1
         for video in lt.iterator(mas_likes):
-            print(str(posicion_imprimir),": " + "Titulo: " + video["title"] + ", Vistas: " + video["views"] +\
-", Canal: " + video["channel_title"] + ", Likes: " + video["likes"] + ", Dislikes: " + video["dislikes"]\
+            print(str(posicion_imprimir),": " + "Titulo: " + video["title"] + ", Vistas: " + str(video["views"]) +\
+", Canal: " + video["channel_title"] + ", Likes: " + str(video["likes"]) + ", Dislikes: " + str(video["dislikes"])\
 + "Fecha publicación: " + video["publish_time"])
             print('Tags del video: ' )
             for tag in lt.iterator(video['tags']):
