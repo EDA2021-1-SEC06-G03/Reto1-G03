@@ -68,7 +68,7 @@ def loadVideos(catalog, size_videos: int):
         
         video_agregar['tags'] = lt.newList('ARRAY_LIST')
         for tag in video_leido['tags'].split('""|""'):
-            lt.addLast(tag)
+            lt.addLast(video_agregar['tags'], tag)
 
         model.addVideo(catalog, video_agregar)
         contador_datos += 1
