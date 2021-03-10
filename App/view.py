@@ -209,11 +209,15 @@ los datos una vez de los archivos. \n Para recargar, reinicia la aplicación.')
                 ha_escogido_pais = True
             else:
                 print("Por favor ingresa un pais disponible.")
+        print('Cargando informacion, por favor espera...')
+        time_1 = time.process_time()
         mas_trending = controller.getMostTrending(catalog, pais)
+        time_2 = time.process_time()
         print("El video con mayor cantidad de dias en tendencia en {} es : ".format(pais))
-        '''print("Titulo: " + mas_trending["title"] + ", Canal: " + mas_trending["channel_title"] + ", Dias en tendencia: "\
- + str(mas_trending["repeticiones"]) + ", Pais: " + mas_trending["country"])'''
-        print(mas_trending['video_id'])
+        print("Titulo: " + mas_trending["title"] + ", Canal: " + mas_trending["channel_title"] + ", Dias en tendencia: "\
+ + str(mas_trending["repeticiones"]) + ", Pais: " + mas_trending["country"])
+        print('Milisegundos de carga :{}'.format(str((time_2-time_1)*1000)))
+#        print(mas_trending['video_id'])
         
         
     

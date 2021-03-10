@@ -121,18 +121,24 @@ def subListVideos_porPais(tad_lista, pais:str):
 
 def ObtenerVideosDistintos(tad_lista):
     videos_distintos = lt.newList(datastructure = 'ARRAY_LIST', cmpfunction = cmpVideosByVideoID)
+    primero = lt.firstElement(tad_lista)
+    primero['repeticiones'] = 1
+    lt.addLast(videos_distintos, primero)
     for video in lt.iterator(tad_lista):
         video_agregar = {}
         info_deseada = ['title','video_id', 'category_id', 'views', 'channel_title', \
 'country', 'likes', 'dislikes', 'publish_time']
-             
+        
         for info in info_deseada:
             video_agregar[info] = video[info]
-        if not (lt.isPresent(videos_distintos, video_agregar)):
+        if   lt.lastElement(videos_distintos)['video_id'] == video_agregar['video_id']:
+                lt.lastElement(videos_distintos)['repeticiones'] = lt.lastElement(videos_distintos)['repeticiones'] + 1
+        else :
+            video_agregar['repeticiones'] = 1
             lt.addLast(videos_distintos, video_agregar)
     return videos_distintos
 
-def getRepeticiones(sublista, distintos_en_sublista):
+'''def getRepeticiones(sublista, distintos_en_sublista):
     for video_unico in lt.iterator(distintos_en_sublista):
         encontrado = False
         repeticiones = 0
@@ -143,18 +149,21 @@ def getRepeticiones(sublista, distintos_en_sublista):
             else:
                 if encontrado == True:
                     break
-        video_unico['repeticiones'] = repeticiones
+        video_unico['repeticiones'] = repeticiones'''
 
 
 
 def getMaxReps(sublista):
-    maximo_valor = 0
-    maximo_apuntador = lt.firstElement(sublista)
-    for video in lt.iterator(sublista):
-        if video['repeticiones'] > maximo_valor:
-            maximo_valor = video['repeticiones']
-            maximo_apuntador = video
-    return maximo_apuntador
+    if not lt.isEmpty(sublista):
+        maximo_valor = 0
+        maximo_apuntador = lt.firstElement(sublista)
+        for video in lt.iterator(sublista):
+            if video['repeticiones'] >= maximo_valor:
+                maximo_valor = video['repeticiones']
+                maximo_apuntador = video
+        return maximo_apuntador
+    else:
+        return None
 
 
 
@@ -199,17 +208,22 @@ def sortList(tad_lista, metodo, orden):
         merge.sort(tad_lista, funcion_comp)
 
 
-'''
-lista = lt.newList()
-lt.addLast(lista, {'.':'fecha1', 'video_id': 'id1'})
+
+'''lista = lt.newList()
+lt.addLast(lista, {'.':'fecha7', 'video_id': 'id2'})
+lt.addLast(lista, {'.':'fecha6', 'video_id': 'id3'})
 lt.addLast(lista, {'.':'fecha2', 'video_id': 'id1'})
+lt.addLast(lista, {'.':'fecha1', 'video_id': 'id1'})
 lt.addLast(lista, {'.':'fecha4', 'video_id': 'id1'})
 lt.addLast(lista, {'.':'fecha5', 'video_id': 'id1'})
 lt.addLast(lista, {'.':'fecha3', 'video_id': 'id2'})
 
+sortList(lista, 'merge', 'video_id')
 distintos = ObtenerVideosDistintos(lista)
-getRepeticiones(lista, distintos)
+for i in lt.iterator(lista):
+    print(i['video_id'])
+
+print(getMaxReps(distintos))
+print('')
 for i in lt.iterator(distintos):
-    print(i['repeticiones'])
-print(getMaxReps(distintos)['repeticiones'])
-info_deseada = ['video_id', '.']'''
+    print(i['video_id'])'''

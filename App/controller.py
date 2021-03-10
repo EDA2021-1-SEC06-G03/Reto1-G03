@@ -152,6 +152,5 @@ def getMostTrending(catalog, pais):
     sublista = subListVideos_porPais(catalog['videos'], pais)
     sortVideos(sublista, 'merge', 'video_id')
     distintos_en_sublista = ObtenerVideosDistintos(sublista)
-    model.getRepeticiones(sublista, distintos_en_sublista)
     return model.getMaxReps(distintos_en_sublista)
 
