@@ -65,10 +65,16 @@ def loadVideos(catalog, size_videos: int):
         for info in info_deseada:
             video_agregar[info] = video_leido[info]
         video_agregar['trending_date'] = datetime.strptime(video_leido['trending_date'], '%y.%d.%m').date()
+        
+        video_agregar['tags'] = lt.newList('ARRAY_LIST')
+        for tag in video_leido['tags'].split('""|""'):
+            lt.addLast(tag)
+
         model.addVideo(catalog, video_agregar)
         contador_datos += 1
         if contador_datos >= size_videos:
             break
+
 
 def loadCategorias(catalog):
     """
