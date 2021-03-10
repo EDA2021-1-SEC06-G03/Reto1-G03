@@ -168,7 +168,14 @@ def getMaxReps(sublista):
         return None
 
 def video_tiene_tag(video, tag:str):
-    return lt.isPresent(video['tags'], tag)
+    encontrado = False
+    for t in lt.iterator(video['tags']):
+        if tag in t:
+            encontrado = True
+            break
+
+    return encontrado
+
 
 def subListVideos_porTag(tad_lista, tag:str):
     sublist = lt.newList(datastructure = tad_lista['type'])
