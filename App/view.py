@@ -105,8 +105,8 @@ while True:
             primer_video = controller.primer_video(catalog)
             print('El primer video cargado es:')
             print("Titulo: " + primer_video["title"] + ", Canal: " + primer_video["channel_title"] + ", Fecha de tendencia: " + \
-                str(primer_video["trending_date"]) + ", País: " + primer_video["country"] + ", Vistas: " + primer_video["views"] + \
-                    ", Likes: " + primer_video["likes"] + ", Dislikes: " + primer_video["dislikes"])
+                str(primer_video["trending_date"]) + ", País: " + primer_video["country"] + ", Vistas: " + str(primer_video["views"]) + \
+                    ", Likes: " + str(primer_video["likes"]) + ", Dislikes: " + str(primer_video["dislikes"]))
             print('Los paises distintos de los videos son :')
             contador_paises = 1
             for pais in lt.iterator(catalog['paises']):

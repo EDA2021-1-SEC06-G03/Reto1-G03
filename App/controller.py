@@ -66,7 +66,7 @@ def loadVideos(catalog, size_videos: int):
         for info in info_deseada_strings:
             video_agregar[info] = video_leido[info]
         for info in info_numerica:
-            video_agregar[info] = video_leido[info]
+            video_agregar[info] = int(video_leido[info])
         
         
         video_agregar['trending_date'] = datetime.strptime(video_leido['trending_date'], '%y.%d.%m').date()
