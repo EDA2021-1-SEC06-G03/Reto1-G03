@@ -162,6 +162,10 @@ def ObtenerVideosDistintos(tad_lista):
     sortVideos(tad_lista, 'merge', "video_id")
     return model.ObtenerVideosDistintos(tad_lista)
 
+def getTrendingByCategory(catalog):
+    category = model.getTrendingByCategory(catalog)
+    return category
+
 def getMostTrending(catalog, pais):
     sublista = subListVideos_porPais(catalog['videos'], pais)
     sublista = ObtenerVideosDistintos(sublista)

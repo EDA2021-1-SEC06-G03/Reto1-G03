@@ -1,5 +1,4 @@
-﻿"""
- * Copyright 2020, Departamento de sistemas y Computación, Universidad
+﻿ * '''Copyright 2020, Departamento de sistemas y Computación, Universidad
  * de Los Andes
  *
  *
@@ -32,7 +31,7 @@ La vista se encarga de la interacción con el usuario
 Presenta el menu de opciones y por cada seleccion
 se hace la solicitud al controlador para ejecutar la
 operación solicitada
-"""
+'''
 def initCatalog(estructura):
     """
     Inicializa el catalogo de libros
@@ -216,12 +215,13 @@ los datos una vez de los archivos. \n Para recargar, reinicia la aplicación.')
  + str(mas_trending["repeticiones"]) + ", Pais: " + mas_trending["country"])
         print('Milisegundos de carga :{}'.format(str((time_2-time_1)*1000)))
 #        print(mas_trending['video_id'])
-        
-        
     
     elif int(inputs[0]) == 4:
-        label = input("Categoria a buscar: ")
-        pass
+        elif int(inputs[0]) == 4:
+        categoria = input("Digite el nombre de la categoría que desea buscar")
+        categoryCatalog = controller.getVideosByCategory(catalog, categoria, catalog)
+        video = controller.masDiasTrending(catalog)
+        print("El vídeo con más días de tendencia en la categoría {0} fue: Nombre: {1} -- Canal: {2} -- ID de la Categoría: {3} -- Días en Trending: {4}".format(categoryName, video['title'], video['channel_title'], video['category_id'], video['dias_t']))
     
     elif int(inputs[0]) == 5:
         n = lt.size(catalog['videos'])

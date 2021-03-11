@@ -119,6 +119,28 @@ def subListVideos_porPais(tad_lista, pais:str):
             lt.addLast(sublist, video)
     return sublist
 
+def getTrendingByCategory(vid):
+    size = lt.size(vid)
+    trending_video="Ninguno"
+    trending = 1
+    i = 1
+    j = 2
+    while i <= size and j <= size:
+        video = lt.getElement(ord_videos, i)
+        if video['title'] == lt.getElement(vid, j)['title']: 
+            while ii <= size and (video['title'] == lt.getElement(ord_videos, ii)['title']):
+                video['dias_t'] += 1
+                j += 1 
+            i = j + 1
+            j += 2
+        else:
+            i += 1
+            j += 1
+        if video['dias_t'] > trending:
+            trending = video['dias_t']
+            trending_video = video
+    return trending_video
+
 def ObtenerVideosDistintos(tad_lista):
     videos_distintos = lt.newList(datastructure = 'ARRAY_LIST')
     primero = lt.firstElement(tad_lista)
